@@ -10,8 +10,13 @@ const register = asyncHandler(async (req, res) => {
 });
 
 const login = asyncHandler(async (req, res) => {
-  const data = await authService.loginUser(req.body);
-  res.status(200).json(data);
+  try {
+    const data = await authService.loginUser(req.body);
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(401);
+    throw new Error('Invalid email or password');
+  }
 });
 
 const getMe = asyncHandler(async (req, res) => {

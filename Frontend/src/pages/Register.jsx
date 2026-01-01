@@ -7,19 +7,24 @@ import Input from '../components/common/Input';
 import { toast } from 'react-toastify';
 
 const Register = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'user' });
+  const [error, setError] = useState('');
   const { register } = useAuth();
   const navigate = useNavigate();
 
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError('');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     try {
       await register(formData);
       navigate('/login');
-    } catch (error) {
-        toast.error(error.response?.data?.message || 'Registration failed');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Registration failed');
     }
   };
 
@@ -38,6 +43,18 @@ const Register = () => {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md z-10">
         <div className="bg-white py-8 px-4 shadow-2xl sm:rounded-xl sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
+            {error && (
+              <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
+                <div className="flex">
+                  <div className="ml-3">
+                    <p className="text-sm text-red-700 font-medium">
+                      {error}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
            <Input 
             label="Full Name" 
             name="name" 
@@ -65,6 +82,20 @@ const Register = () => {
             required 
             placeholder="••••••••"
           />
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Select Role</label>
+            <select
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+                className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-3 px-3 border bg-white"
+            >
+                <option value="user">User - Regular Access</option>
+                <option value="admin">Admin - Full Access</option>
+            </select>
+          </div>
+
           <Button type="submit" className="w-full flex justify-center py-3">Register</Button>
         </form>
 

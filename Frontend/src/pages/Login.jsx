@@ -8,18 +8,23 @@ import { toast } from 'react-toastify';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const [error, setError] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError(''); // Clear error when user types
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     try {
       await login(formData);
       navigate('/');
-    } catch (error) {
-       toast.error(error.response?.data?.message || 'Login failed');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Invalid email or password');
     }
   };
 
@@ -38,6 +43,18 @@ const Login = () => {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md z-10">
         <div className="bg-white py-8 px-4 shadow-2xl sm:rounded-xl sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
+            {error && (
+              <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
+                <div className="flex">
+                  <div className="ml-3">
+                    <p className="text-sm text-red-700 font-medium">
+                      {error}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             <Input 
               label="Email Address" 
               name="email" 

@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }) => {
           handleAutoLogout();
       }, 60 * 60 * 1000);
 
-      toast.success('Login success');
+      toast.success('Login Successfully');
       return data;
     } catch (error) {
       // toast.error(error.response?.data?.message || 'Login failed');
