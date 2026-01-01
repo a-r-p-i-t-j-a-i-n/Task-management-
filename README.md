@@ -2,7 +2,7 @@
 
 A full-stack MERN application for managing team tasks, projects, and collaboration. featuring a clean, professional "De-AI" UI, Role-Based Access Control (RBAC), and real-time features.
 
-## 🚀 Technologies
+## Technologies
 
 - **Frontend**: React.js, Tailwind CSS, Vite
 - **Backend**: Node.js, Express.js, MongoDB, Mongoose
@@ -10,7 +10,7 @@ A full-stack MERN application for managing team tasks, projects, and collaborati
 
 
 
-## ✨ Key Features
+##  Key Features
 
 1.  **Professional Dashboard**: Real-time stats (Total, Pending, Completed) and task filtering.
 2.  **Task Management**: Create, edit, delete, and assign tasks with deadlines.
@@ -20,7 +20,7 @@ A full-stack MERN application for managing team tasks, projects, and collaborati
 4.  **Collaboration**: Real-time comments system on tasks.
 5.  **Secure Auth**: Auto-logout after inactivity.
 
-## 🛠️ Setup Instructions
+##  Setup Instructions
 
 ### 1. Backend
 ```bash
